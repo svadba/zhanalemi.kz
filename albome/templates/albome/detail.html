@@ -1,0 +1,56 @@
+{% extends "index.html" %}
+{% load static %}
+{% block application %}
+<div class="container-fluid">
+		<div class="row">
+			<div class="col-xs-12 head">
+				<video autoplay="autoplay" loop="loop" poster="{% static 'media/logo.png' %}" preload="auto">
+					<source src="{% static 'media/logo.mp4' %}" type='video/mp4; codecs="avc1.42E01E, mp4a.40.2"' />
+				</video>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-12 foot">
+				<div id="carousel-generic" class="carousel slide" data-ride="carousel" data-interval="0">
+					<!-- Индикаторы -->
+					<ol class="carousel-indicators">
+						<li data-target="#carousel-generic" data-slide-to="0" class="active">2017</li>
+						<li data-target="#carousel-generic" data-slide-to="1">2016</li>
+						<li data-target="#carousel-generic" data-slide-to="2">2015</li>
+					</ol>
+					<img class="border-bottom" src="{% static 'media/border-bottom.png' %}" alt="">
+					<!-- Оболочка для слайдов -->
+					<div class="carousel-inner" role="listbox">
+                {% for photo in photos %}
+                    {% if  forloop.first %}
+                        <div class="item active">
+                            <div class="col-xs-12">
+                    {% else %}
+                        <div class="item">
+                            <div class="col-xs-12">
+                    {% endif %}
+                        {% for photo in photo %}
+                        <div class="col-xs-12 col-sm-6 col-md-3">
+                        <a href="{{ photo.image.url }}" data-lightbox="roadtrip">
+                                <img class="img-responsive" data-lightbox="roadtrip" src="{{ photo.image.url }}" alt="...">
+                                </a>
+                            <h3>{{ photo.album.title }}</h3>
+                            <p>{{ photo.album.date|date:"d E" }}</p>
+                        </div>
+                        {% endfor %}
+                            </div>
+                        </div>
+                {% endfor %}
+					<!-- Контроль -->
+					<a class="left carousel-control" href="#carousel-generic" role="button" data-slide="prev">
+						<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+						<span class="sr-only">Предыдущий</span>
+					</a>
+					<a class="right carousel-control" href="#carousel-generic" role="button" data-slide="next">
+						<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+						<span class="sr-only">Следующий</span>
+					</a>
+				</div>
+			</div>
+		</div>
+{% endblock %}
